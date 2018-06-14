@@ -20,14 +20,19 @@ class ProductsController extends Controller
       $product=\App\Product::find($id);
       $variables=[
         "product"=>$product,
-        "category"=>$product->category
+        "category"=>$product->category,
+        "properties"=>$product->properties
     ];
       return view ('products.show', $variables);
     }
 
     public function create()
     {
-      return view('products.create');
+      $categories=\App\Category::all();
+      $variables=[
+        "categories"=>$categories,
+      ];
+      return view('products.create',$variables);
     }
 
     public function store(Request $request)
@@ -51,8 +56,12 @@ class ProductsController extends Controller
         'name'=>$request->input('name'),
         'cost'=>$request->input('cost'),
         'profit_margin'=>$request->input('profit_margin'),
-        'category_id'=>$request->input('category_id')
+        // 'category_id'=>$request->input('category_id')
       ]);
+      $category=\App\Category::find($request->input('category_id'));
+      $product->category()->associate($category);
+      $product->save();
+
       return redirect('/productos');
     }
 }

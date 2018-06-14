@@ -11,5 +11,11 @@
     <p>{{$product->profit_margin}}</p>
     <p>{{$product->getPrice()}}</p>
     <p>{{$category->name}}</p>
+    <p>Propiedades:</p>
+    <ul>
+      @foreach ($properties as $property)
+        <li>{{$property->name}}</li>
+      @endforeach
+    </ul>
   </body>
 </html>

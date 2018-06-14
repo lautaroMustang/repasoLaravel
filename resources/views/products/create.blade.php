@@ -49,7 +49,7 @@
             </div>
           @endif
   			</div>
-        <div class="form-group">
+        {{-- <div class="form-group">
           <label for="category_id">Categoría</label>
           <input type="text" name="category_id" id="category_id" value="{{old('category_id')}}" class="form-control">
           @if ($errors->has('category_id'))
@@ -62,6 +62,13 @@
             </div>
 
           @endif
+        </div> --}}
+        <div class="form-group">
+          <select name="category_id">
+            @foreach ($categories as $category)
+              <option value="{{$category->id}}">{{$category->name}}</option>
+            @endforeach
+          </select>
         </div>
         <div class="form-group">
           <button type="submit" name="button" class="btn btn-primary">Enviar</button>

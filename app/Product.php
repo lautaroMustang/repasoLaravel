@@ -24,7 +24,7 @@ class Product extends Model
     }
     public function properties()
     {
-      return $this->belongsToMany('\App\Property','product_property','product_id');
+      return $this->belongsToMany('\App\Property','product_property','product_id','property_id');
       // 1. Modelo de los datos que se van a traer
       // 2. Tabla que une a ambos modelos
       // 3. Foreign Key del modelo actual
