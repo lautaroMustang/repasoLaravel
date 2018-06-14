@@ -10,5 +10,6 @@
     <p>{{$product->cost}}</p>
     <p>{{$product->profit_margin}}</p>
     <p>{{$product->getPrice()}}</p>
+    <p>{{$category->name}}</p>
   </body>
 </html>

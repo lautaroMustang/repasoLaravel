@@ -18,7 +18,10 @@ class ProductsController extends Controller
     public function show($id)
     {
       $product=\App\Product::find($id);
-      $variables=["product"=>$product,];
+      $variables=[
+        "product"=>$product,
+        "category"=>$product->category
+    ];
       return view ('products.show', $variables);
     }
 
