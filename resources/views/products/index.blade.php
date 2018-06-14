@@ -8,8 +8,10 @@
   <body>
     <ul>
       @foreach ($products as $product)
-        <li>{{$product->name}}</li>
-      @endforeach
+        <li>
+          <a href="/productos/{{$product->id}}">{{$product->name}}</a>
+        </li>
+        @endforeach
     </ul>
 
   </body>
