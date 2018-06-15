@@ -8,7 +8,7 @@
   <body>
     <div class="container">
       <h1>Agregar Productos</h1>
-      <form class="col-md-5" action="/productos/agregar" method="post">
+      <form class="col-md-5" action="/productos/agregar" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         <div class="form-group">
           <label for="name">Nombre</label>
@@ -76,7 +76,19 @@
             <input type="checkbox" name="properties[]" value="{{$property->id}}" id="property{{$property->id}}">
           @endforeach
         </div>
-
+        <div class="form-group">
+            <label for="fotoPath">Imagen</label>
+            <input type="file" name="fotoPath" id="fotoPath" class="form-control">
+            @if ($errors->has('fotoPath'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->get('fotoPath') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
 
 
         <div class="form-group">

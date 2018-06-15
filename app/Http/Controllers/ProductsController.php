@@ -88,22 +88,27 @@ class ProductsController extends Controller
         "name"=>"required|unique:products",
         "cost"=>"required|numeric",
         "profit_margin"=>"required|numeric",
-        //"category_id"=>"required|numeric|between:1,3"
+        "category_id"=>"required|numeric|between:1,3"
       ];
 
       $messages=[
         "required"=>"El :attribute es requerido!",
         "unique"=>"El :attribute tiene que ser único",
         "numeric"=>"el :attribute tiene que se numérico",
-        //"between"=>"el :attribute tiene que estar entre :min y :max"
+        "between"=>"el :attribute tiene que estar entre :min y :max"
       ];
-//      $request->validate($rules,$messages);
 
+//      $request->validate($rules,$messages);
       $validator = Validator::make($input,$rules,$messages);
+
+      $extensionImagen = $request->file('fotoPath')->getClientOriginalExtension();
+      $fotoPath = $request->file('fotoPath')->storeAs('productos', uniqid() . "." . $extensionImagen, 'public');
+
       $product = \App\Product::create([
         'name'=>$request->input('name'),
         'cost'=>$request->input('cost'),
         'profit_margin'=>$request->input('profit_margin'),
+        'fotopath' => $fotoPath,
         // 'category_id'=>$request->input('category_id')
       ]);
       $category=\App\Category::find($request->input('category_id'));

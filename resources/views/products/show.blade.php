@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/app.css">
   </head>
   <body>
+    <img src="{{ asset('storage/' . $product->fotopath) }}" alt="">
     <h1>{{$product->name}}</h1>
     <p>{{$product->cost}}</p>
     <p>{{$product->profit_margin}}</p>
