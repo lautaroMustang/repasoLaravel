@@ -53,6 +53,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group row{{ $errors->has('dni') ? ' has-error' : '' }}">
+                            <label for="dni" class="col-md-4 control-label">DNI</label>
+
+                            <div class="col-md-6">
+                                <input id="dni" type="dni" class="form-control" name="dni" required>
+
+                                @if ($errors->has('dni'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('dni') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group row">
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
 

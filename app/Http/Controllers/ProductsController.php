@@ -33,18 +33,19 @@ class ProductsController extends Controller
       $properties=\App\Property::all();
 
       $variables=[
-        "categories"=>$categories,
-        "properties"=>$properties
+        "categories" => $categories,
+    		"properties" => $properties,
       ];
       return view('products.create',$variables);
     }
 
     public function destroy($id)
     {
-      $product=\App\Product::find($id);
+      $product = \App\Product::find($id);
 
       $product->properties()->sync([]);
       $product->delete();
+
       return redirect('/productos');
     }
 

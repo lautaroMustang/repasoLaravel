@@ -19,7 +19,7 @@ Route::get('/productos/agregar','ProductsController@create');
 Route::post('/productos/agregar', 'ProductsController@store');
 Route::get('/productos/{id}', 'ProductsController@show');
 Route::delete('/productos/{id}', 'ProductsController@destroy');
-Route::get('/productos/{id}/edit', 'ProductsController@edit');
+Route::get('/productos/{id}/edit', 'ProductsController@edit')->middleware('checkname:admin');
 Route::patch('/productos/{id}','ProductsController@update');
 
 Auth::routes();
