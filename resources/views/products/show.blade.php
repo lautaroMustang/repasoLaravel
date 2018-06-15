@@ -22,5 +22,9 @@
       {{method_field('delete')}}
       <button type="submit">Borrar</button>
     </form>
+    <form action="/productos/{{$product->id}}/edit" method="get">
+      {{ csrf_field() }}
+      <button type="submit">modificar</button>
+    </form>
   </body>
 </html>

@@ -48,6 +48,37 @@ class ProductsController extends Controller
       return redirect('/productos');
     }
 
+    public function edit($id)
+    {
+      $product=\App\Product::find($id);
+      $categories=\App\Category::all();
+      $properties=\App\Property::all();
+
+      $variables=[
+        'product'=>$product,
+        'categories'=>$categories,
+        'properties'=>$properties,
+      ];
+      return view('products.edit',$variables);
+    }
+
+    public function update(Request $request, $id)
+    {
+      $product=\App\Product::find($id);
+      $category=\App\Category::find($request->input('category_id'));
+
+      $product->name=$request->input('name');
+      $product->cost=$request->input('cost');
+      $product->profit_margin=$request->input('profit_margin');
+      $product->category()->associate($category);
+      $product->save();
+
+      $product->properties()->sync($request->input('properties'));
+
+      return redirect('/productos/'.$id);
+
+    }
+
     public function store(Request $request)
     {
 
