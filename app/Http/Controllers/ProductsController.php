@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Validator;
 
 class ProductsController extends Controller
 {
@@ -29,38 +30,55 @@ class ProductsController extends Controller
     public function create()
     {
       $categories=\App\Category::all();
+      $properties=\App\Property::all();
+
       $variables=[
         "categories"=>$categories,
+        "properties"=>$properties
       ];
       return view('products.create',$variables);
     }
 
+    public function destroy($id)
+    {
+      $product=\App\Product::find($id);
+
+      $product->properties()->sync([]);
+      $product->delete();
+      return redirect('/productos');
+    }
+
     public function store(Request $request)
     {
+
+      $input=$request->except('_token');
       $rules=[
         "name"=>"required|unique:products",
         "cost"=>"required|numeric",
         "profit_margin"=>"required|numeric",
-        "category_id"=>"required|numeric|between:1,3"
+        //"category_id"=>"required|numeric|between:1,3"
       ];
 
       $messages=[
         "required"=>"El :attribute es requerido!",
         "unique"=>"El :attribute tiene que ser único",
         "numeric"=>"el :attribute tiene que se numérico",
-        "between"=>"el :attribute tiene que estar entre :min y :max"
+        //"between"=>"el :attribute tiene que estar entre :min y :max"
       ];
+//      $request->validate($rules,$messages);
 
-      $request->validate($rules,$messages);
-      $producto = \App\Product::create([
+      $validator = Validator::make($input,$rules,$messages);
+      $product = \App\Product::create([
         'name'=>$request->input('name'),
         'cost'=>$request->input('cost'),
         'profit_margin'=>$request->input('profit_margin'),
         // 'category_id'=>$request->input('category_id')
       ]);
       $category=\App\Category::find($request->input('category_id'));
-      $product->category()->associate($category);
-      $product->save();
+
+      $product->properties()->sync($request->input('properties'));
+    	$product->category()->associate($category);
+    	$product->save();
 
       return redirect('/productos');
     }

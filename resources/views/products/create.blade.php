@@ -71,6 +71,15 @@
           </select>
         </div>
         <div class="form-group">
+          @foreach ($properties as $property)
+            <label for="property{{$property->id}}">{{$property->name}}</label>
+            <input type="checkbox" name="properties[]" value="{{$property->id}}" id="property{{$property->id}}">
+          @endforeach
+        </div>
+
+
+
+        <div class="form-group">
           <button type="submit" name="button" class="btn btn-primary">Enviar</button>
         </div>
       </form>

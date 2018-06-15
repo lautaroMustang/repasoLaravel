@@ -17,5 +17,10 @@
         <li>{{$property->name}}</li>
       @endforeach
     </ul>
+    <form action="/productos/{{$product->id}}" method="post">
+      {{ csrf_field() }}
+      {{method_field('delete')}}
+      <button type="submit">Borrar</button>
+    </form>
   </body>
 </html>
